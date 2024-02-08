@@ -69,24 +69,26 @@ fi
 
 echo -e "────────────────────────────────\n"
 
+while true; do
+    read -p "📧 Enter Sets Email: " email </dev/tty
+    read -s -p "🔐 Enter password: " pass </dev/tty
+    url="https://auth.setscharts.app/v1/api/user/login"
+    json_data='{
+        "loginId": "'"$email"'",
+        "password": "'"$pass"'",
+        "applicationId": "30e74f33-f9b0-4e2c-b98a-c4845f6543be"
+    }'
+    response=$(curl -s -X POST -H "Content-Type: application/json" -d "$json_data" "$url")
 
-read -p "📧 Enter Sets Email: " email </dev/tty
-read -s -p "🔐 Enter password: " pass </dev/tty
-url="https://auth.setscharts.app/v1/api/user/login"
-json_data='{
-"loginId": "'"$email"'",
-"password": "'"$pass"'",
-"applicationId": "30e74f33-f9b0-4e2c-b98a-c4845f6543be"
-}'
-response=$(curl -s -X POST -H "Content-Type: application/json" -d "$json_data" "$url")
-
-TOKEN=$(echo "$response" | jq -r '.token')
-if [ -z "$TOKEN" ]; then
-echo "Error: Authentication failed."
-exit 0
-else
-echo -e "\n👤 Logged in as $(echo "$response" | jq -r '.user.fullName')\n"
-fi
+    TOKEN=$(echo "$response" | jq -r '.token')
+    if [ -z "$TOKEN" ]; then
+        echo "Error: Authentication failed."
+        exit 0
+    else
+        echo -e "\n👤 Logged in as $(echo "$response" | jq -r '.user.fullName')\n"
+        break
+    fi
+done
 
 
 echo -e "────────────────────────────────\n"
