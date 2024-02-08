@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ARCHITECTURE=$(uname -m)
-SYSTEM_UUID=$(sudo dmidecode -s system-uuid)
+SYSTEM_UUID=$(dmidecode -s system-uuid)
 DESTINATION_DIR="/tmp"
 CONTAINER_NAME="sets-instance"
 URL="https://auth.setscharts.app/v1/api/local-instance/$SYSTEM_UUID"
