@@ -70,8 +70,8 @@ fi
 echo -e "────────────────────────────────\n"
 
 
-read -p "📧 Enter Sets Email: " email
-read -s -p "🔐 Enter password: " pass
+read -p "📧 Enter Sets Email: " email </dev/tty
+read -s -p "🔐 Enter password: " pass </dev/tty
 url="https://auth.setscharts.app/v1/api/user/login"
 json_data='{
 "loginId": "'"$email"'",
